@@ -152,6 +152,7 @@ export const getCatalog = cache(async (): Promise<CatalogData> => {
       plans: [plan],
       category: row.category,
       prices: { PE: null, BO: null },
+      comparePrices: { PE: null, BO: null },
       cadence: 'desde',
       seller: row.seller,
       delivery: row.delivery,
@@ -183,14 +184,20 @@ export const getCatalog = cache(async (): Promise<CatalogData> => {
       ),
     );
     for (const marketCode of ['PE', 'BO'] as const) {
-      const prices = service.plans
-        .flatMap((plan) => plan.offers)
-        .filter(
-          (offer) => offer.marketCode === marketCode && offer.price !== null,
-        )
-        .map((offer) => offer.price as number);
-      service.prices[marketCode] =
-        prices.length > 0 ? Math.min(...prices) : null;
+      let cheapest: CatalogOffer | null = null;
+      for (const offer of service.plans.flatMap((plan) => plan.offers)) {
+        if (offer.marketCode !== marketCode || offer.price === null) continue;
+        if (cheapest === null || offer.price < (cheapest.price as number)) {
+          cheapest = offer;
+        }
+      }
+      service.prices[marketCode] = cheapest?.price ?? null;
+      service.comparePrices[marketCode] =
+        cheapest?.compareAtPrice != null &&
+        cheapest.price !== null &&
+        cheapest.compareAtPrice > cheapest.price
+          ? cheapest.compareAtPrice
+          : null;
     }
   }
 

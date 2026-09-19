@@ -35,6 +35,7 @@ export type CatalogProduct = {
   plans: CatalogPlan[];
   category: string;
   prices: Record<MarketCode, number | null>;
+  comparePrices: Record<MarketCode, number | null>;
   cadence: string;
   seller: string;
   delivery: string;
@@ -79,4 +80,10 @@ export type PromoBanner = {
 export type PromotionsData = {
   announcements: PromoAnnouncement[];
   banners: PromoBanner[];
+};
+
+export type MarketplaceRailsData = {
+  bestSellerProductIds: number[];
+  newArrivalProductIds: number[];
+  restockedProductIds: number[];
 };

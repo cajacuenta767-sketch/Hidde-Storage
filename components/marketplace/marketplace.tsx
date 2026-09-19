@@ -36,7 +36,12 @@ import {
 
 import { requestStockAlertAction } from '@/app/actions/stock-requests';
 import { AnnouncementBar } from '@/components/marketplace/announcement-bar';
+import { ProductRails } from '@/components/marketplace/product-rails';
 import { PromoBanners } from '@/components/marketplace/promo-banners';
+import {
+  TrustSections,
+  WhatsAppFloatButton,
+} from '@/components/marketplace/trust-sections';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -54,6 +59,7 @@ import type {
   CatalogPlan,
   CatalogProduct,
   MarketCode,
+  MarketplaceRailsData,
   PromotionsData,
 } from '@/lib/catalog-types';
 
@@ -61,6 +67,8 @@ type MarketplaceProps = {
   categories: string[];
   products: CatalogProduct[];
   promotions: PromotionsData;
+  rails: MarketplaceRailsData;
+  whatsappNumber: string;
   viewer: {
     firstName: string;
     initials: string;
@@ -163,7 +171,7 @@ const internationalPlatformPriority = [
   'Fortnite / V-Bucks',
 ] as const;
 
-function ProductArtwork({
+export function ProductArtwork({
   product,
   eager = false,
 }: {
@@ -265,6 +273,8 @@ export function Marketplace({
   categories,
   products,
   promotions,
+  rails,
+  whatsappNumber,
   viewer,
 }: MarketplaceProps) {
   const [marketCode, setMarketCode] = useState<MarketCode>('BO');
@@ -372,6 +382,30 @@ export function Marketplace({
 
     return () => window.clearTimeout(restorePreferences);
   }, [categories, products]);
+
+  useEffect(() => {
+    if (!preferencesReady) return;
+    const requestedSlug = new URLSearchParams(window.location.search).get(
+      'producto',
+    );
+    if (!requestedSlug) return;
+    const requested = products.find((candidate) =>
+      candidate.plans.some((plan) => plan.slug === requestedSlug),
+    );
+    if (!requested) return;
+    const timer = window.setTimeout(() => {
+      setSelectedProduct(requested);
+      setSelectedPlanId(
+        requested.plans.find((plan) => plan.slug === requestedSlug)?.id ??
+          requested.plans[0]?.id ??
+          null,
+      );
+      setSelectedAccessType('PROFILE');
+      setSelectedDuration(1);
+      window.history.replaceState(null, '', window.location.pathname);
+    }, 0);
+    return () => window.clearTimeout(timer);
+  }, [preferencesReady, products]);
 
   useEffect(() => {
     if (!preferencesReady) return;
@@ -929,6 +963,15 @@ export function Marketplace({
           </div>
         </section>
 
+        <ProductRails
+          products={products}
+          rails={rails}
+          marketCode={marketCode}
+          favorites={favorites}
+          money={money}
+          onSelect={openProduct}
+        />
+
         <section
           className="catalog-section"
           id="catalog"
@@ -1007,6 +1050,15 @@ export function Marketplace({
                               'Precio por confirmar'
                             ) : (
                               <>
+                                {product.comparePrices[marketCode] !== null ? (
+                                  <s className="product-price__compare">
+                                    {money.format(
+                                      product.comparePrices[
+                                        marketCode
+                                      ] as number,
+                                    )}
+                                  </s>
+                                ) : null}
                                 {money.format(productPrice)}{' '}
                                 <small>{product.cadence}</small>
                               </>
@@ -1069,18 +1121,55 @@ export function Marketplace({
             </div>
           )}
         </section>
+
+        <TrustSections whatsappNumber={whatsappNumber} />
       </div>
 
       <footer className="site-footer">
-        <div className="shell footer-inner">
-          <span>
-            DoraPass <small>· Tu streaming, a tu ritmo.</small>
-          </span>
-          <span className="footer-safe">
-            <CircleHelp /> No mostramos contraseñas ni credenciales.
-          </span>
+        <div className="shell footer-columns">
+          <div className="footer-brand">
+            <span>
+              DoraPass <small>· Tu streaming, a tu ritmo.</small>
+            </span>
+            <span className="footer-safe">
+              <CircleHelp /> No mostramos contraseñas ni credenciales.
+            </span>
+          </div>
+          <nav className="footer-links" aria-label="Enlaces del sitio">
+            <strong>DoraPass</strong>
+            <button
+              type="button"
+              onClick={() =>
+                document
+                  .getElementById('catalog')
+                  ?.scrollIntoView({ behavior: 'smooth' })
+              }
+            >
+              Catálogo
+            </button>
+            <Link href="/mi-cuenta">Mi cuenta</Link>
+            <Link href="/mi-cuenta/soporte">Soporte</Link>
+          </nav>
+          <nav className="footer-links" aria-label="Enlaces legales">
+            <strong>Legal</strong>
+            <Link href="/terminos">Términos y condiciones</Link>
+            <Link href="/privacidad">Política de privacidad</Link>
+          </nav>
+          <div className="footer-links" aria-label="Contacto">
+            <strong>Contacto</strong>
+            <a
+              href={`https://wa.me/${whatsappNumber}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              WhatsApp +{whatsappNumber}
+            </a>
+            <span className="footer-hours">Atención todos los días</span>
+          </div>
         </div>
       </footer>
+
+      <WhatsAppFloatButton whatsappNumber={whatsappNumber} />
 
       <Sheet open={isFilterOpen} onOpenChange={setIsFilterOpen}>
         <SheetContent
