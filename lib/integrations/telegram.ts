@@ -189,6 +189,36 @@ export async function notifyTelegramTokenIssued(input: {
   });
 }
 
+export async function notifyTelegramStockRequested(input: {
+  serviceName: string;
+  planName: string;
+  accessTypeCode: string;
+  durationMonths: number;
+  marketCode: 'PE' | 'BO';
+  priceLabel: string | null;
+  customerName: string;
+  customerEmail: string;
+  customerPhone: string | null;
+  pendingCount: number;
+}) {
+  const appUrl = (process.env.NEXT_PUBLIC_APP_URL ?? '').replace(/\/$/, '');
+  const url = appUrl ? `${appUrl}/admin/solicitudes` : null;
+  return sendToTelegramAdmins({
+    text:
+      `📦 SOLICITUD DE STOCK\n\n` +
+      `Producto: ${input.serviceName} — ${input.planName}\n` +
+      `Modalidad: ${input.accessTypeCode === 'PROFILE' ? 'Perfil' : 'Cuenta completa'} · ${input.durationMonths} mes(es)\n` +
+      `País: ${input.marketCode === 'PE' ? 'Perú' : 'Bolivia'}` +
+      `${input.priceLabel ? `\nPrecio publicado: ${input.priceLabel}` : ''}\n\n` +
+      `Cliente: ${input.customerName}\n` +
+      `Correo: ${input.customerEmail}\n` +
+      `${input.customerPhone ? `WhatsApp: ${input.customerPhone}\n` : ''}\n` +
+      `Clientes esperando esta opción: ${input.pendingCount}\n` +
+      `Repón el stock y avísales desde el panel.`,
+    buttons: url ? [[{ text: '📋 Ver solicitudes de stock', url }]] : undefined,
+  });
+}
+
 export async function notifyTelegramPaymentNeedsInventory(publicId: string) {
   const order = await getOrderSummary(publicId);
   if (!order) return false;

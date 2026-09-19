@@ -1341,6 +1341,50 @@ export const emailOtpLookupEvents = pgTable(
   ],
 );
 
+export const stockRequests = pgTable(
+  'stock_requests',
+  {
+    id: bigint('id', { mode: 'number' })
+      .primaryKey()
+      .generatedAlwaysAsIdentity(),
+    customerId: bigint('customer_id', { mode: 'number' })
+      .notNull()
+      .references(() => customers.id, { onDelete: 'cascade' }),
+    productId: bigint('product_id', { mode: 'number' })
+      .notNull()
+      .references(() => products.id, { onDelete: 'cascade' }),
+    offerVariantId: bigint('offer_variant_id', { mode: 'number' })
+      .notNull()
+      .references(() => offerVariants.id, { onDelete: 'cascade' }),
+    marketCode: text('market_code')
+      .notNull()
+      .references(() => markets.code, { onDelete: 'restrict' }),
+    status: text('status').default('pending').notNull(),
+    resolvedAt: timestamp('resolved_at', { withTimezone: true }),
+    resolvedByAdminCustomerId: bigint('resolved_by_admin_customer_id', {
+      mode: 'number',
+    }).references(() => customers.id, { onDelete: 'set null' }),
+    ...timestamps,
+  },
+  (table) => [
+    check(
+      'stock_requests_status_check',
+      sql`${table.status} in ('pending', 'fulfilled', 'dismissed')`,
+    ),
+    uniqueIndex('stock_requests_pending_uidx')
+      .on(table.customerId, table.offerVariantId)
+      .where(sql`${table.status} = 'pending'`),
+    index('stock_requests_variant_status_idx').on(
+      table.offerVariantId,
+      table.status,
+    ),
+    index('stock_requests_status_created_idx').on(
+      table.status,
+      table.createdAt,
+    ),
+  ],
+);
+
 export type Market = typeof markets.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type MarketPrice = typeof marketPrices.$inferSelect;
@@ -1359,3 +1403,4 @@ export type ServiceAccountCostEvent =
 export type AccountProfile = typeof accountProfiles.$inferSelect;
 export type ProfileAssignment = typeof profileAssignments.$inferSelect;
 export type AccountIncident = typeof accountIncidents.$inferSelect;
+export type StockRequest = typeof stockRequests.$inferSelect;

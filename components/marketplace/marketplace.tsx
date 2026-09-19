@@ -13,6 +13,7 @@ import {
 import {
   ArrowRight,
   BadgePercent,
+  BellRing,
   CalendarCheck2,
   Check,
   ChevronLeft,
@@ -33,6 +34,7 @@ import {
   X,
 } from 'lucide-react';
 
+import { requestStockAlertAction } from '@/app/actions/stock-requests';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -283,6 +285,11 @@ export function Marketplace({
   const [preferencesReady, setPreferencesReady] = useState(false);
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [checkoutError, setCheckoutError] = useState('');
+  const [stockAlert, setStockAlert] = useState<{
+    offerId: number;
+    status: 'sending' | 'success' | 'error';
+    message: string;
+  } | null>(null);
   const [activeOrder, setActiveOrder] = useState<CheckoutOrder | null>(null);
   const deferredQuery = useDeferredValue(query);
 
@@ -610,6 +617,38 @@ export function Marketplace({
   async function handleCheckout() {
     if (cartItems.length === 0) return;
     await createOrder(cartItems);
+  }
+
+  async function requestStockAlert() {
+    if (!selectedOffer || selectedOffer.stock > 0) return;
+    if (!viewer) {
+      window.location.assign('/ingresar?next=/');
+      return;
+    }
+    const offerId = selectedOffer.id;
+    setStockAlert({ offerId, status: 'sending', message: '' });
+    try {
+      const result = await requestStockAlertAction(offerId);
+      if (result.status === 'unauthenticated') {
+        window.location.assign('/ingresar?next=/');
+        return;
+      }
+      setStockAlert({
+        offerId,
+        status: result.status === 'success' ? 'success' : 'error',
+        message:
+          result.message ??
+          (result.status === 'success'
+            ? 'Te avisaremos cuando vuelva el stock.'
+            : 'No pudimos registrar tu solicitud.'),
+      });
+    } catch {
+      setStockAlert({
+        offerId,
+        status: 'error',
+        message: 'No pudimos registrar tu solicitud. Inténtalo de nuevo.',
+      });
+    }
   }
 
   async function paySelectedNow() {
@@ -1426,15 +1465,48 @@ export function Marketplace({
                         : selectedDirectAction}
                   {canAddSelectedOffer ? <MessageCircle /> : <Clock3 />}
                 </Button>
-                <Button
-                  className="dark-button checkout-button"
-                  type="button"
-                  disabled={!canAddSelectedOffer}
-                  onClick={addSelectedToCart}
-                >
-                  <Plus />
-                  Agregar al carrito
-                </Button>
+                {selectedPrice !== null && selectedOffer.stock <= 0 ? (
+                  stockAlert?.offerId === selectedOffer.id &&
+                  stockAlert.status === 'success' ? (
+                    <output className="stock-alert-success">
+                      <Check /> {stockAlert.message}
+                    </output>
+                  ) : (
+                    <>
+                      <Button
+                        className="dark-button checkout-button"
+                        type="button"
+                        disabled={
+                          stockAlert?.offerId === selectedOffer.id &&
+                          stockAlert.status === 'sending'
+                        }
+                        onClick={() => void requestStockAlert()}
+                      >
+                        {stockAlert?.offerId === selectedOffer.id &&
+                        stockAlert.status === 'sending'
+                          ? 'Enviando solicitud…'
+                          : 'Avísame cuando haya stock'}
+                        <BellRing />
+                      </Button>
+                      {stockAlert?.offerId === selectedOffer.id &&
+                      stockAlert.status === 'error' ? (
+                        <p className="checkout-error" role="alert">
+                          {stockAlert.message}
+                        </p>
+                      ) : null}
+                    </>
+                  )
+                ) : (
+                  <Button
+                    className="dark-button checkout-button"
+                    type="button"
+                    disabled={!canAddSelectedOffer}
+                    onClick={addSelectedToCart}
+                  >
+                    <Plus />
+                    Agregar al carrito
+                  </Button>
+                )}
                 {checkoutError ? (
                   <p className="checkout-error" role="alert">
                     {checkoutError}

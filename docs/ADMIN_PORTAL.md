@@ -18,6 +18,7 @@ Estas credenciales pertenecen únicamente a los datos locales creados por `npm r
 - Aviso automático al cliente cuando su renovación fue aprobada.
 - Historial de eventos de la suscripción y auditoría administrativa.
 - Consulta de suscripciones, clientes y métodos de pago activos.
+- Solicitudes de stock: cuando un cliente pide una opción agotada, llega un aviso por Telegram y la solicitud aparece en `Solicitudes de stock`. Desde ahí el administrador actualiza el stock de la variante y el sistema avisa a cada cliente en espera mediante una notificación en su cuenta.
 
 ## Flujo de confirmación manual
 
