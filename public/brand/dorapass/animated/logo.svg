@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
+  <title id="title">DoraPass</title>
+  <desc id="desc">Monograma DP azul con orejas de gato, símbolo amarillo de acceso y el nombre DoraPass.</desc>
+  <defs>
+    <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1685ff"/>
+      <stop offset="1" stop-color="#075bea"/>
+    </linearGradient>
+    <linearGradient id="navy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#09275f"/>
+      <stop offset="1" stop-color="#03143b"/>
+    </linearGradient>
+  </defs>
+  <g id="mark">
+    <path id="ear-left" d="M56 104 Q38 51 67 18 Q117 31 151 70 Z" fill="url(#navy)"/>
+    <path id="ear-left-inner" d="M65 85 Q55 50 72 36 Q103 45 127 69 Z" fill="url(#blue)"/>
+    <path id="ear-right" d="M236 70 Q270 31 320 18 Q349 51 331 104 Z" fill="url(#navy)"/>
+    <path id="ear-right-inner" d="M260 69 Q284 45 315 36 Q332 50 322 85 Z" fill="url(#blue)"/>
+    <path id="letter-d-mark" fill="url(#blue)" d="M56 88h132c89 0 144 45 144 112s-55 112-144 112H56V88zm72 58v108h56c45 0 72-20 72-54s-27-54-72-54h-56z"/>
+    <path id="letter-p-mark" fill="url(#navy)" d="M130 126h87c58 0 96 31 96 82 0 47-35 77-88 80h-29v52h-66V126zm66 54v56h22c20 0 32-10 32-28s-12-28-32-28h-22z"/>
+    <g id="access-disc">
+      <circle cx="218" cy="208" r="31" fill="#ffc400"/>
+      <rect x="184" y="201" width="68" height="12" rx="6" fill="#082252"/>
+      <circle cx="218" cy="217" r="8" fill="#082252"/>
+      <rect x="214" y="217" width="8" height="18" rx="4" fill="#082252"/>
+    </g>
+  </g>
+  <g id="wordmark" fill="#061b49">
+    <text x="372" y="253" font-family="Arial Black, Arial, sans-serif" font-size="152" font-weight="900" letter-spacing="-7">DORA</text>
+    <text x="760" y="253" font-family="Arial Black, Arial, sans-serif" font-size="152" font-weight="900" letter-spacing="-7">PASS</text>
+    <path d="M757 110h25v150h-25z" fill="#147cff" opacity="0"/>
+  </g>
+</svg>

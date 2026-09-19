@@ -1,0 +1,77 @@
+{
+ "html": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\logo_motion.html",
+ "probe": [
+  {
+   "t": 0.0,
+   "#mark:transform": "matrix(0.92, 0, 0, 0.92, -4, 22)",
+   "#mark:opacity": "0",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 14, 0)",
+   "#wordmark:opacity": "0",
+   "#access-disc:transform": "matrix(0.92, 0, 0, 1.08, 0, -8)",
+   "#access-disc:opacity": "0"
+  },
+  {
+   "t": 180.0,
+   "#mark:transform": "matrix(0.9, 0, 0, 0.9, -7, 25)",
+   "#mark:opacity": "0",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 14, 0)",
+   "#wordmark:opacity": "0",
+   "#access-disc:transform": "matrix(0.92, 0, 0, 1.08, 0, -8)",
+   "#access-disc:opacity": "0"
+  },
+  {
+   "t": 410.0,
+   "#mark:transform": "matrix(1.00039, 0, 0, 1.00039, -1.26349, 4.9222)",
+   "#mark:opacity": "0.717064",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 13.9514, 0)",
+   "#wordmark:opacity": "0.00347222",
+   "#access-disc:transform": "matrix(0.92, 0, 0, 1.08, 0, -8)",
+   "#access-disc:opacity": "0"
+  },
+  {
+   "t": 650.0,
+   "#mark:transform": "matrix(1.03805, 0, 0, 1.03805, 0.888417, -2.60946)",
+   "#mark:opacity": "0.986052",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 8.11806, 0)",
+   "#wordmark:opacity": "0.420139",
+   "#access-disc:transform": "matrix(0.92, 0, 0, 1.08, 0, -8)",
+   "#access-disc:opacity": "0"
+  },
+  {
+   "t": 760.0,
+   "#mark:transform": "matrix(1.00771, 0, 0, 1.00771, -0.435298, -0.129405)",
+   "#mark:opacity": "1",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 5.44444, 0)",
+   "#wordmark:opacity": "0.611111",
+   "#access-disc:transform": "matrix(0.933333, 0, 0, 1.06667, 0, -7.16667)",
+   "#access-disc:opacity": "0.0833333"
+  },
+  {
+   "t": 980.0,
+   "#mark:transform": "matrix(0.995, 0, 0, 0.995, -0.999999, 0.999998)",
+   "#mark:opacity": "1",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 0.0972222, 0)",
+   "#wordmark:opacity": "0.993056",
+   "#access-disc:transform": "matrix(1.03275, 0, 0, 0.967249, 0, 0.58254)",
+   "#access-disc:opacity": "1"
+  },
+  {
+   "t": 1100.0,
+   "#mark:transform": "matrix(0.999858, 0, 0, 0.999858, -0.0284791, 0.0284791)",
+   "#mark:opacity": "1",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 0, 0)",
+   "#wordmark:opacity": "1",
+   "#access-disc:transform": "matrix(0.980289, 0, 0, 1.01971, 0, -0.991338)",
+   "#access-disc:opacity": "1"
+  },
+  {
+   "t": 1200.0,
+   "#mark:transform": "matrix(1, 0, 0, 1, 0, 0)",
+   "#mark:opacity": "1",
+   "#wordmark:transform": "matrix(1, 0, 0, 1, 0, 0)",
+   "#wordmark:opacity": "1",
+   "#access-disc:transform": "matrix(1, 0, 0, 1, 0, 0)",
+   "#access-disc:opacity": "1"
+  }
+ ]
+}

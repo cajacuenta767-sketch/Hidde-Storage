@@ -1,0 +1,24 @@
+{
+  "html": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\logo_motion.html",
+  "times_ms": [
+    0,
+    180,
+    410,
+    650,
+    760,
+    980,
+    1100,
+    1200
+  ],
+  "frames": [
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000000ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000180ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000410ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000650ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000760ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_000980ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_001100ms.png",
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\frames\\frame_001200ms.png"
+  ],
+  "strip": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\filmstrip.png"
+}

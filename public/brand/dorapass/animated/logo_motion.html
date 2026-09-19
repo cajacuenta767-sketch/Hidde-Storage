@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DoraPass — Logo Motion</title>
+<style>
+  :root {
+    --p2m-duration: 1200ms;
+    --p2m-ease-enter: cubic-bezier(.25,.46,.45,.94);
+    --p2m-ease-settle: cubic-bezier(.22,1,.36,1);
+    --p2m-squash: .08;
+    --p2m-overshoot: 1.04;
+    color-scheme: dark;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; font-family: Inter, ui-sans-serif, system-ui, sans-serif; background: #06132f; color: #eaf2ff; }
+  main { width: min(1180px, calc(100% - 32px)); margin: auto; padding: 32px 0 24px; }
+  #stage { min-height: 520px; display: grid; place-items: center; border: 1px solid #19366b; border-radius: 28px; background: radial-gradient(circle at 50% 35%, #153872 0, #0a2048 45%, #06132f 78%); overflow: hidden; }
+  #logo-root { width: min(70%, 840px); }
+  #logo-root svg { display: block; width: 100%; overflow: visible; filter: drop-shadow(0 20px 32px rgba(0,0,0,.3)); }
+  #mark, #wordmark, #access-disc { transform-box: fill-box; transform-origin: center; }
+  .atoms { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 14px; }
+  .atom { min-height: 118px; display: grid; place-items: center; border: 1px solid #19366b; border-radius: 20px; background: #0a1d40; }
+  .atom svg { width: 116px; overflow: visible; }
+  .atom span { display: block; color: #93aad4; font-size: 12px; margin-top: -16px; }
+  .atom-lift:hover svg, .atom-lift:focus-visible svg { transform: translateY(-5px); filter: drop-shadow(0 10px 12px rgba(22,133,255,.3)); }
+  .atom-lift svg { transition: transform 220ms cubic-bezier(.25,.46,.45,.94), filter 220ms; }
+  .atom-pulse .disc { animation: atomPulse 1800ms ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .atom-press:active svg { transform: scale(1.05,.95); }
+  .atom-press svg { transition: transform 180ms cubic-bezier(.22,1,.36,1); }
+  @keyframes atomPulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.09);opacity:.78} }
+  .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 18px 0; }
+  button { border: 1px solid #28559a; border-radius: 999px; padding: 10px 16px; background: #0d2b61; color: #fff; font: inherit; cursor: pointer; }
+  button:hover { background: #123878; }
+  input[type=range] { width: 200px; accent-color: #1685ff; }
+  .principles { display: flex; flex-wrap: wrap; gap: 8px; }
+  .principles span { padding: 7px 11px; border-radius: 999px; background: #0b2859; border: 1px solid #214b8b; color: #a8c2ef; font-size: 12px; }
+  .principles span.active { background: #ffc400; border-color: #ffc400; color: #092253; }
+  footer { color: #7994c4; font-size: 12px; margin-top: 16px; }
+  @media (max-width: 700px) { #stage { min-height: 330px; } #logo-root { width: 92%; } .atoms { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .atom-pulse .disc { animation: none; } * { scroll-behavior: auto !important; } }
+  body.qa .atoms, body.qa .controls, body.qa .principles, body.qa footer { display: none; }
+  body.qa main { width: 100%; padding: 0; }
+  body.qa #stage { min-height: 100vh; border: 0; border-radius: 0; }
+</style>
+</head>
+<body>
+<main>
+  <section id="stage">
+    <div id="logo-root" aria-label="Animación del logo DoraPass">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" role="img" aria-labelledby="motion-title">
+        <title id="motion-title">DoraPass</title>
+        <defs>
+          <linearGradient id="blue" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1685ff"/><stop offset="1" stop-color="#075bea"/></linearGradient>
+          <linearGradient id="navy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#09275f"/><stop offset="1" stop-color="#03143b"/></linearGradient>
+          <clipPath id="word-reveal"><rect id="wipe" x="350" y="70" width="850" height="260"/></clipPath>
+        </defs>
+        <g id="mark">
+          <path d="M56 104Q38 51 67 18q50 13 84 52Z" fill="url(#navy)"/><path d="M65 85Q55 50 72 36q31 9 55 33Z" fill="url(#blue)"/>
+          <path d="M236 70q34-39 84-52 29 33 11 86Z" fill="url(#navy)"/><path d="M260 69q24-24 55-33 17 14 7 49Z" fill="url(#blue)"/>
+          <path fill="url(#blue)" d="M56 88h132c89 0 144 45 144 112s-55 112-144 112H56V88zm72 58v108h56c45 0 72-20 72-54s-27-54-72-54h-56z"/>
+          <path fill="url(#navy)" d="M130 126h87c58 0 96 31 96 82 0 47-35 77-88 80h-29v52h-66V126zm66 54v56h22c20 0 32-10 32-28s-12-28-32-28h-22z"/>
+          <g id="access-disc"><circle cx="218" cy="208" r="31" fill="#ffc400"/><rect x="184" y="201" width="68" height="12" rx="6" fill="#082252"/><circle cx="218" cy="217" r="8" fill="#082252"/><rect x="214" y="217" width="8" height="18" rx="4" fill="#082252"/></g>
+        </g>
+        <g id="wordmark" fill="#f3f7ff" clip-path="url(#word-reveal)"><text x="372" y="253" font-family="Arial Black,Arial,sans-serif" font-size="152" font-weight="900" letter-spacing="-7">DORA</text><text x="760" y="253" font-family="Arial Black,Arial,sans-serif" font-size="152" font-weight="900" letter-spacing="-7">PASS</text></g>
+      </svg>
+    </div>
+  </section>
+
+  <section class="atoms" aria-label="Estudios de movimiento">
+    <button class="atom atom-lift"><svg viewBox="0 0 120 90"><path d="M15 22h45c30 0 45 14 45 33S90 78 60 78H15Z" fill="#1685ff"/><circle cx="69" cy="54" r="13" fill="#ffc400"/></svg><span>Elevación</span></button>
+    <div class="atom atom-pulse"><svg viewBox="0 0 120 90"><path d="M15 22h45c30 0 45 14 45 33S90 78 60 78H15Z" fill="#1685ff"/><circle class="disc" cx="69" cy="54" r="13" fill="#ffc400"/></svg><span>Pulso</span></div>
+    <button class="atom atom-press"><svg viewBox="0 0 120 90"><path d="M15 22h45c30 0 45 14 45 33S90 78 60 78H15Z" fill="#1685ff"/><circle cx="69" cy="54" r="13" fill="#ffc400"/></svg><span>Presión</span></button>
+  </section>
+
+  <section class="controls">
+    <button id="replay">Repetir</button><button id="slow">Cámara lenta</button>
+    <label>Velocidad <input id="speed" type="range" min="0.25" max="1.5" step="0.05" value="0.6"></label><output id="speed-value">0.60×</output>
+  </section>
+  <section class="principles" aria-label="Principios"><span data-phase="0">Anticipación</span><span data-phase="1">Staging</span><span data-phase="2">Seguimiento</span><span data-phase="3">Squash</span><span data-phase="4">Appeal</span></section>
+  <footer>Logo motion study · DoraPass · Pixel2Motion</footer>
+</main>
+<script>
+const DURATION = 1200;
+const root = document.querySelector('#logo-root');
+const mark = document.querySelector('#mark');
+const word = document.querySelector('#wordmark');
+const wipe = document.querySelector('#wipe');
+const disc = document.querySelector('#access-disc');
+let animations = [];
+let speed = .6;
+
+function setFinalLogo() {
+  mark.style.opacity = '1'; mark.style.transform = 'translate(0,0) scale(1)';
+  word.style.opacity = '1'; word.style.transform = 'translate(0,0)';
+  wipe.setAttribute('x', '350'); wipe.setAttribute('width', '850');
+  disc.style.opacity = '1'; disc.style.transform = 'translate(0,0) scale(1)';
+}
+function clearInline() { [mark,word,disc].forEach(el => el.removeAttribute('style')); wipe.setAttribute('x','350'); wipe.setAttribute('width','850'); }
+function build() {
+  animations.forEach(a => a.cancel()); animations = []; clearInline();
+  animations.push(mark.animate([
+    {offset:0,opacity:0,transform:'translate(-4px,22px) scale(.92)'},
+    {offset:.15,opacity:0,transform:'translate(-7px,25px) scale(.90)',easing:'cubic-bezier(.25,.46,.45,.94)'},
+    {offset:.58,opacity:1,transform:'translate(1px,-3px) scale(1.04)',easing:'cubic-bezier(.22,1,.36,1)'},
+    {offset:.82,opacity:1,transform:'translate(-1px,1px) scale(.995)',easing:'cubic-bezier(.22,1,.36,1)'},
+    {offset:1,opacity:1,transform:'translate(0,0) scale(1)'}
+  ],{duration:DURATION,fill:'both'}));
+  animations.push(word.animate([
+    {offset:0,opacity:0,transform:'translateX(14px)'},{offset:.34,opacity:0,transform:'translateX(14px)'},
+    {offset:.82,opacity:1,transform:'translateX(0)',easing:'cubic-bezier(.25,.46,.45,.94)'},{offset:1,opacity:1,transform:'translateX(0)'}
+  ],{duration:DURATION,fill:'both'}));
+  animations.push(wipe.animate([{offset:0,x:'350',width:'0'},{offset:.34,x:'350',width:'0'},{offset:.82,x:'350',width:'850',easing:'cubic-bezier(.25,.46,.45,.94)'},{offset:1,x:'350',width:'850'}],{duration:DURATION,fill:'both'}));
+  animations.push(disc.animate([
+    {offset:0,opacity:0,transform:'translateY(-8px) scale(.92,1.08)'},{offset:.62,opacity:0,transform:'translateY(-8px) scale(.92,1.08)'},
+    {offset:.78,opacity:1,transform:'translateY(2px) scale(1.08,.92)',easing:'cubic-bezier(.25,.46,.45,.94)'},
+    {offset:.92,opacity:1,transform:'translateY(-1px) scale(.98,1.02)',easing:'cubic-bezier(.22,1,.36,1)'},{offset:1,opacity:1,transform:'translateY(0) scale(1)'}
+  ],{duration:DURATION,fill:'both'}));
+  animations.forEach(a => a.playbackRate = speed);
+}
+function seek(ms) { build(); animations.forEach(a => { a.pause(); a.currentTime = Math.min(ms,DURATION); }); highlight(ms); }
+function highlight(ms) { const phase = ms<180?0:ms<650?1:ms<980?2:ms<1100?3:4; document.querySelectorAll('.principles span').forEach((el,i)=>el.classList.toggle('active',i===phase)); }
+function play() { build(); const tick=()=>{const t=animations[0]?.currentTime||0;highlight(t);if(t<DURATION)requestAnimationFrame(tick)};tick(); }
+
+const params = new URLSearchParams(location.search);
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+if (params.has('qa')) document.body.classList.add('qa');
+if (params.get('static')==='1' || reduced) { seek(DURATION); }
+else if (params.has('t')) { seek(Number(params.get('t')) || 0); }
+else { play(); }
+
+document.querySelector('#replay').addEventListener('click',play);
+document.querySelector('#slow').addEventListener('click',()=>{speed=.25;document.querySelector('#speed').value=speed;document.querySelector('#speed-value').value='0.25×';animations.forEach(a=>a.playbackRate=speed)});
+document.querySelector('#speed').addEventListener('input',e=>{speed=Number(e.target.value);document.querySelector('#speed-value').value=speed.toFixed(2)+'×';animations.forEach(a=>a.playbackRate=speed)});
+window.__p2mReady = true;
+</script>
+</body>
+</html>

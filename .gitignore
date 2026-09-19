@@ -10,10 +10,10 @@
 
 # testing
 /coverage
+*.tsbuildinfo
 
 # next.js
 /.next/
-/.vinext/
 /out/
 
 # misc
@@ -28,11 +28,14 @@ yarn-error.log*
 
 # local environment
 .env*
+!.env.example
 
 # deployment and generated files
+/.tmp/
 .vercel
 next-env.d.ts
 /dist/
 /.wrangler/
 /outputs/
 /work/
+

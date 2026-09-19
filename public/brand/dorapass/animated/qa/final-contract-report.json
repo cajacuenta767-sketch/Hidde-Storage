@@ -1,0 +1,16 @@
+{
+  "html": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\logo_motion.html",
+  "times_ms": [
+    1200
+  ],
+  "frames": [
+    "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\final-contract\\frame_001200ms.png"
+  ],
+  "final_frame_contract": {
+    "final_frame": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\final-contract\\frame_001200ms.png",
+    "static_render": "C:\\Users\\PC\\Documents\\ChatGPT\\Hidde-Storage\\public\\brand\\dorapass\\animated\\qa\\static-final.png",
+    "mean_abs_diff": 0.0,
+    "max_abs_diff": 0.0,
+    "pct_pixels_off_by_25plus": 0.0
+  }
+}

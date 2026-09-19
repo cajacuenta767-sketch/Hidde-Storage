@@ -1,0 +1,83 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1788059492131,
+      "tag": "0000_plain_randall_flagg",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788112123745,
+      "tag": "0001_fancy_cassandra_nova",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1788136687453,
+      "tag": "0002_ancient_riptide",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1788137088196,
+      "tag": "0003_public_major_mapleleaf",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1788143869959,
+      "tag": "0004_clammy_zeigeist",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788145471080,
+      "tag": "0005_soft_obadiah_stane",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788180612613,
+      "tag": "0006_lively_dragon_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788184298449,
+      "tag": "0007_secret_pretty_boy",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1788187343040,
+      "tag": "0008_flowery_dagger",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1788214390191,
+      "tag": "0009_goofy_vengeance",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1788215265843,
+      "tag": "0010_smart_cammi",
+      "breakpoints": true
+    }
+  ]
+}

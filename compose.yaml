@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: luma_pass
+      POSTGRES_USER: luma_pass
+      POSTGRES_PASSWORD: luma_pass_local
+    ports:
+      - '127.0.0.1:55433:5432'
+    volumes:
+      - luma_pass_postgres:/var/lib/postgresql/data
+      - ./db/postgres/pg_hba.conf:/etc/postgresql/pg_hba.conf:ro
+    command: ['postgres', '-c', 'hba_file=/etc/postgresql/pg_hba.conf']
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U luma_pass -d luma_pass']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  luma_pass_postgres:
