@@ -11,6 +11,7 @@ import {
   passwordResetTokens,
 } from '@/db/schema';
 import { normalizeEmail, normalizeLoginIdentifier, normalizePhone } from '@/lib/auth/normalization';
+import { sendPasswordResetEmail } from '@/lib/integrations/email';
 import { hashPassword, verifyPassword } from '@/lib/auth/password';
 import {
   checkAuthRateLimit,
@@ -179,7 +180,7 @@ export async function requestPasswordResetAction(
   }
 
   const [customer] = await db
-    .select({ id: customers.id })
+    .select({ id: customers.id, email: customers.email })
     .from(customers)
     .where(or(eq(customers.email, identifier), eq(customers.phoneE164, identifier)))
     .limit(1);
@@ -197,10 +198,9 @@ export async function requestPasswordResetAction(
       expiresAt,
     });
 
-    if (process.env.NODE_ENV !== 'production') {
-      const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://127.0.0.1:3000';
-      console.info(`[DoraPass desarrollo] Recuperación: ${baseUrl}/restablecer-contrasena?token=${token}`);
-    }
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL ?? 'http://127.0.0.1:3000';
+    const resetUrl = `${baseUrl}/restablecer-contrasena?token=${token}`;
+    await sendPasswordResetEmail(customer.email, resetUrl);
   }
 
   await registerAuthFailure(rateLimit.key, 'password_reset');

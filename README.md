@@ -103,6 +103,9 @@ completamente vacía.
 | `TELEGRAM_ADMIN_CHAT_IDS` | No | IDs de chat del admin, separados por coma |
 | `TELEGRAM_ADMIN_EMAIL` | No | Correo del admin que ejecuta acciones desde Telegram |
 | `NOTLETTERS_API_TOKEN` | No | Token de NotLetters para leer OTP de correo vía API |
+| `CRON_SECRET` | En producción | Autoriza `GET/POST /api/cron/daily` (mantenimiento diario: expira pedidos, marca vencidas, recordatorios de renovación) |
+| `RESEND_API_KEY` | En producción | API key de Resend para correos transaccionales (recuperación de contraseña). Sin ella, en desarrollo el correo se imprime en consola |
+| `EMAIL_FROM` | En producción | Remitente verificado en Resend, ej. `DoraPass <no-reply@tudominio.com>` |
 
 Sin las variables de Telegram la app funciona igual; simplemente no se envían
 avisos al bot.
@@ -170,6 +173,18 @@ tests/               Pruebas con node --test
   descuento en las tarjetas.
 - Checkout que crea pedidos con expiración de 24 h; pago coordinado por
   WhatsApp.
+- Carruseles temáticos en la portada (ofertas destacadas, favoritos, los
+  más pedidos, volvieron con stock, nuevos) y precio oficial tachado en las
+  tarjetas.
+- Páginas SEO por producto en `/servicio/[slug]` con precios por mercado,
+  `sitemap.xml` y `robots.txt`; su CTA abre la compra en la portada.
+- Sección "Cómo funciona", preguntas frecuentes, footer con enlaces y botón
+  flotante de WhatsApp.
+- Mantenimiento diario vía `/api/cron/daily` (protegido con `CRON_SECRET`):
+  expira pedidos no pagados de 24 h, libera reservas, marca suscripciones
+  vencidas/por vencer y crea recordatorios de renovación a 7/3/1/0 días.
+- Correo transaccional con Resend (recuperación de contraseña); en
+  desarrollo se imprime en consola.
 - **Solicitudes de stock:** los productos agotados no se ocultan; muestran
   "Sin stock disponible" y el botón **"Avísame cuando haya stock"**. La
   solicitud se registra sin duplicados (índice único parcial), con límite de
@@ -252,17 +267,17 @@ npm run build                   # build de producción (requiere DATABASE_URL de
 
 ## Pendientes para producción
 
+- **Programar el mantenimiento diario:** apuntar un cron externo (Vercel
+  Cron, crontab, GitHub Actions) a `GET /api/cron/daily` con
+  `Authorization: Bearer $CRON_SECRET`, una vez al día.
+
 - **Pasarela de pagos automática** (Culqi/Mercado Pago para PE; por definir
   en BO). Las tablas `payment_attempts` y `payment_webhook_events` ya
   existen; falta el endpoint de webhook y adaptar
   `lib/orders/confirmation.ts` para un actor "sistema"
   (`confirmationSource` distinto de `manual`).
-- **Proveedor de correo** (Resend/SES/etc.) para recuperación de contraseña
-  y avisos; hoy el enlace de recuperación solo se imprime en consola.
 - **Entrega sin humano:** hoy el token viaja por WhatsApp manualmente;
   con pasarela + correo se puede mostrar el acceso directo en la cuenta.
-- **Tareas programadas** (cron): expirar pedidos no pagados, marcar
-  suscripciones vencidas, recordatorios de renovación.
 - Reemplazar credenciales demo, configurar dominio real en
   `NEXT_PUBLIC_APP_URL` y secretos definitivos.
 

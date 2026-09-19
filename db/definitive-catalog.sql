@@ -58,9 +58,11 @@ update products
 set slug = 'playstation-plus-essential', plan_name = 'Essential', updated_at = now()
 where service_name = 'PlayStation Plus' and plan_name = 'Individual';
 
+-- Microsoft renombró los planes en octubre 2025: Core → Essential y
+-- Standard → Premium. Se conservan los slugs históricos.
 update products
-set slug = 'xbox-game-pass-core', plan_name = 'Core', updated_at = now()
-where service_name = 'Xbox Game Pass' and plan_name = 'Individual';
+set slug = 'xbox-game-pass-core', plan_name = 'Essential', updated_at = now()
+where service_name = 'Xbox Game Pass' and plan_name in ('Individual', 'Core');
 
 update products
 set slug = 'netflix-con-vpn', plan_name = 'Con VPN', updated_at = now()
@@ -147,11 +149,11 @@ select
   source.image_path, source.image_alt, true
 from products source
 cross join (values
-  ('xbox-game-pass-standard', 'Standard'),
+  ('xbox-game-pass-standard', 'Premium'),
   ('xbox-game-pass-pc', 'PC'),
   ('xbox-game-pass-ultimate', 'Ultimate')
 ) as variant(slug, plan_name)
-where source.service_name = 'Xbox Game Pass' and source.plan_name = 'Core'
+where source.service_name = 'Xbox Game Pass' and source.plan_name = 'Essential'
 on conflict (slug) do update set
   plan_name = excluded.plan_name,
   image_path = excluded.image_path,
