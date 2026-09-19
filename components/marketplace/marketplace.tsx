@@ -35,6 +35,8 @@ import {
 } from 'lucide-react';
 
 import { requestStockAlertAction } from '@/app/actions/stock-requests';
+import { AnnouncementBar } from '@/components/marketplace/announcement-bar';
+import { PromoBanners } from '@/components/marketplace/promo-banners';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -52,11 +54,13 @@ import type {
   CatalogPlan,
   CatalogProduct,
   MarketCode,
+  PromotionsData,
 } from '@/lib/catalog-types';
 
 type MarketplaceProps = {
   categories: string[];
   products: CatalogProduct[];
+  promotions: PromotionsData;
   viewer: {
     firstName: string;
     initials: string;
@@ -260,6 +264,7 @@ function PlatformCarousel({ platforms, onSelect }: PlatformCarouselProps) {
 export function Marketplace({
   categories,
   products,
+  promotions,
   viewer,
 }: MarketplaceProps) {
   const [marketCode, setMarketCode] = useState<MarketCode>('BO');
@@ -685,8 +690,19 @@ export function Marketplace({
     openProduct(platform);
   }
 
+  function selectPromotedProduct(productId: number) {
+    const product = products.find((candidate) =>
+      candidate.plans.some((plan) => plan.id === productId),
+    );
+    if (product) openProduct(product);
+  }
+
   return (
     <main className="marketplace-app marketplace-app--compact">
+      <AnnouncementBar
+        announcements={promotions.announcements}
+        marketCode={marketCode}
+      />
       <header className="site-header">
         <div className="shell header-inner">
           <a
@@ -789,6 +805,12 @@ export function Marketplace({
           <div className="hero-copy">
             <h1 id="main-title">Todas tus plataformas, en un solo lugar.</h1>
           </div>
+
+          <PromoBanners
+            banners={promotions.banners}
+            marketCode={marketCode}
+            onSelect={selectPromotedProduct}
+          />
 
           <PlatformCarousel
             platforms={carouselPlatforms}
@@ -959,6 +981,11 @@ export function Marketplace({
                         >
                           <Heart fill={isFavorite ? 'currentColor' : 'none'} />
                         </button>
+                        {product.maxDiscountPercent >= 5 ? (
+                          <span className="discount-flag">
+                            -{Math.round(product.maxDiscountPercent)}%
+                          </span>
+                        ) : null}
                         <Badge className="verified-badge">
                           <ShieldCheck /> Verificado
                         </Badge>

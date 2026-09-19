@@ -52,3 +52,31 @@ export type CatalogData = {
   categories: string[];
   products: CatalogProduct[];
 };
+
+export type PromoAnnouncement = {
+  id: string;
+  title: string;
+  marketCode: MarketCode | null;
+};
+
+export type PromoBanner = {
+  id: string;
+  title: string;
+  subtitle: string | null;
+  ctaLabel: string | null;
+  marketCode: MarketCode | null;
+  productId: number | null;
+  serviceName: string | null;
+  planName: string | null;
+  imagePath: string | null;
+  imageAlt: string | null;
+  accent: string | null;
+  accentSoft: string | null;
+  mark: string | null;
+  discountPercent: number | null;
+};
+
+export type PromotionsData = {
+  announcements: PromoAnnouncement[];
+  banners: PromoBanner[];
+};

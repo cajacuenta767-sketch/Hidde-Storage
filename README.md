@@ -165,6 +165,9 @@ tests/               Pruebas con node --test
 
 - Catálogo por mercado (PE/BO) con variantes por tipo de acceso
   (perfil/cuenta completa), duración y precio en moneda local.
+- Portada comercial: barra de anuncios rotativa, carrusel de banners de
+  ofertas (Embla, autoplay) administrado desde el panel y badges de
+  descuento en las tarjetas.
 - Checkout que crea pedidos con expiración de 24 h; pago coordinado por
   WhatsApp.
 - **Solicitudes de stock:** los productos agotados no se ocultan; muestran
@@ -181,6 +184,10 @@ tests/               Pruebas con node --test
 
 ### Panel administrador (`/admin`)
 
+- **Promociones (`/admin/promociones`):** crea los banners del carrusel de
+  ofertas y los mensajes de la barra de anuncios de la portada, con
+  vigencia por fechas y segmentación por país. Sin banners activos, la
+  portada muestra automáticamente las ofertas con mayor descuento y stock.
 - Resumen operativo, pedidos con confirmación manual de pago (protegido
   contra doble aprobación), renovaciones, clientes y suscripciones.
 - Inventario: cuentas de servicio, perfiles, costos, asignaciones,

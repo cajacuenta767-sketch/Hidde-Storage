@@ -1385,6 +1385,42 @@ export const stockRequests = pgTable(
   ],
 );
 
+export const promotions = pgTable(
+  'promotions',
+  {
+    id: bigint('id', { mode: 'number' })
+      .primaryKey()
+      .generatedAlwaysAsIdentity(),
+    kind: text('kind').notNull(),
+    title: text('title').notNull(),
+    subtitle: text('subtitle'),
+    ctaLabel: text('cta_label'),
+    productId: bigint('product_id', { mode: 'number' }).references(
+      () => products.id,
+      { onDelete: 'set null' },
+    ),
+    marketCode: text('market_code').references(() => markets.code, {
+      onDelete: 'restrict',
+    }),
+    sortOrder: integer('sort_order').default(0).notNull(),
+    startsAt: timestamp('starts_at', { withTimezone: true }),
+    endsAt: timestamp('ends_at', { withTimezone: true }),
+    isActive: boolean('is_active').default(true).notNull(),
+    ...timestamps,
+  },
+  (table) => [
+    check(
+      'promotions_kind_check',
+      sql`${table.kind} in ('banner', 'announcement')`,
+    ),
+    index('promotions_kind_active_idx').on(
+      table.kind,
+      table.isActive,
+      table.sortOrder,
+    ),
+  ],
+);
+
 export type Market = typeof markets.$inferSelect;
 export type Product = typeof products.$inferSelect;
 export type MarketPrice = typeof marketPrices.$inferSelect;
