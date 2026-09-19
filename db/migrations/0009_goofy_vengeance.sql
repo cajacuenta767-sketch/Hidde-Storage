@@ -115,6 +115,10 @@ CREATE INDEX "purchase_orders_status_expiry_idx" ON "purchase_orders" USING btre
 ALTER TABLE "payment_records" ADD CONSTRAINT "payment_records_confirmation_source_check" CHECK ("payment_records"."confirmation_source" in ('manual', 'culqi'));--> statement-breakpoint
 ALTER TABLE "profile_assignments" ADD CONSTRAINT "profile_assignments_source_check" CHECK ("profile_assignments"."assignment_source" in ('manual', 'automatic'));
 --> statement-breakpoint
+INSERT INTO "markets" ("code", "name", "currency", "locale")
+VALUES ('PE', 'Perú', 'PEN', 'es-PE'), ('BO', 'Bolivia', 'BOB', 'es-BO')
+ON CONFLICT ("code") DO NOTHING;
+--> statement-breakpoint
 UPDATE "payment_methods"
 SET "is_active" = false, "updated_at" = now()
 WHERE "market_code" = 'PE' AND "code" IN ('YAPE', 'PLIN');
